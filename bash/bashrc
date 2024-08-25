@@ -1,0 +1,29 @@
+# Enable the subsequent settings only in interactive sessions
+[[ $- != *i* ]] && return
+
+[[ ! -r "${XDG_CACHE_HOME}"/bash_history ]] && touch "${XDG_CACHE_HOME}"/bash_history
+HISTFILE="${XDG_CACHE_HOME}"/bash_history
+HISTSIZE=1000
+shopt -s autocd extglob nullglob
+# Load interactive environment
+for file in "${XDG_CONFIG_HOME}"/env/*; do 
+    if [[ -r "${file}" ]]; then 
+        source "${file}"
+    else
+        echo "Environment variables possibly missing"
+    fi
+done
+unset file
+# plugins
+for file in "${XDG_CONFIG_HOME}"/bash/plugins/*.bash; do 
+    if [[ -r "${file}" ]]; then
+        source "${file}" 
+    else 
+        echo "Missing plugin ${file}"
+    fi
+done
+unset file
+# theme
+#source "${XDG_CONFIG_HOME}"/bash/themes/.polus-bash-theme/polus.bash-theme
+#eval "$(oh-my-posh init bash --config "${XDG_CONFIG_HOME}/bash/themes/omp.toml")"
+source "${XDG_CONFIG_HOME}"/bash/themes/simple_prompt.bash

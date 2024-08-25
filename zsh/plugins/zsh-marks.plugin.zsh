@@ -1,0 +1,1 @@
+/home/fredward/.config/zsh/plugins/.zsh-marks/zsh-marks.plugin.zsh

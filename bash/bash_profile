@@ -1,0 +1,13 @@
+# .bash_profile -*- mode: sh -*-
+
+# Load login settings and environment variables
+[[ -f ~/.profile ]] && source ~/.profile
+
+# Load interactive settings
+[[ -f ~/.bashrc ]] && source ~/.config/bash/bashrc
+
+# exec ~/.config/zsh/plugins/.update_scripts/update_plugins.sh
+if [ -z "${XWAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
+  export XDG_CURRENT_DESKTOP=sway
+  exec sway
+fi

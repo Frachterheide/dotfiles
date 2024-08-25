@@ -1,0 +1,1 @@
+/home/fredward/.config/zsh/plugins/.ohmyzsh//plugins/mvn/mvn.plugin.zsh

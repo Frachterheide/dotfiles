@@ -1,0 +1,1 @@
+/home/fredward/.config/bash/plugins/.bashmarks/bashmarks.sh

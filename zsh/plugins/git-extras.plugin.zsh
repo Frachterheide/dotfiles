@@ -1,0 +1,1 @@
+/home/fredward/.config/zsh/plugins/.ohmyzsh//plugins/git-extras/git-extras.plugin.zsh
