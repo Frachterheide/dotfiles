@@ -4,10 +4,19 @@ else
  export EDITOR='nvim'
 fi
 
-export GTK_USE_PORTAL=0
+export INPUTRC=${XDG_CONFIG_HOME}/input/config
+export SDIRS=${XDG_DATA_HOME}/sdirs
+export MARKPATH=${XDG_DATA_HOME}/marks
+
 export WGETRC="$XDG_CONFIG_HOME"/wgetrc
 export MAVEN_OPTS=-Dmaven.repo.local="$XDG_DATA_HOME/maven/repository"
+export PATH="$PATH:$XDG_DATA_HOME/cargo/bin"
+export RUSTUP_HOME="${XDG_DATA_HOME}"/rustup
+export CARGO_HOME="${XDG_DATA_HOME}"/cargo
+export GOPATH=${XDG_DATA_HOME}/go
 
 [ -z "$NVM_DIR" ] && export NVM_DIR="$XDG_DATA_DIR"/nvm
+export NVM_DIR="$XDG_DATA_HOME"/nvm
+
 source /usr/share/nvm/nvm.sh
 source /usr/share/nvm/install-nvm-exec

@@ -1,5 +1,6 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hosts"'
+alias wget='wget --hsts-file="${XDG_CACHE_HOME}/wget-hosts"'
 alias ll='ls -lAFh --color=auto'
-alias mvn='mvn -gs "$XDG_CONFIG_HOME/maven/settings.xml"'
+alias mvn='mvn -gs "${XDG_CONFIG_HOME}/maven/settings.xml"'
+alias yarn='yarn --use-yarnrc "${XDG_CONFIG_HOME}/yarn/config" --cache-folder "${XDG_CACHE_HOME}/yarn"'
