@@ -10,6 +10,7 @@ export MARKPATH=${XDG_DATA_HOME}/marks
 
 export WGETRC="$XDG_CONFIG_HOME"/wgetrc
 export MAVEN_OPTS=-Dmaven.repo.local="$XDG_DATA_HOME/maven/repository"
+export GRADLE_HOME="$XDG_DATA_HOME"/gradle
 export PATH="$PATH:$XDG_DATA_HOME/cargo/bin"
 export RUSTUP_HOME="${XDG_DATA_HOME}"/rustup
 export CARGO_HOME="${XDG_DATA_HOME}"/cargo
