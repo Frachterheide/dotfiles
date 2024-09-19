@@ -11,9 +11,14 @@ local root_dir = function()
 end
 
 local mason_packages = home .. "/.local/share/nvim/mason/packages"
+local mason_share = home .. "/.local/share/nvim/mason/share"
 local jdtls_package = mason_packages .. "/jdtls"
-local google_style = mason_packages .. "/google-java-format/eclipse-java-google-style.xml"
+local google_style = mason_share .. "/jdtls/eclipse-java-google-style.xml"
 local jdtls_jar = vim.fn.glob(jdtls_package .. "/plugins/org.eclipse.equinox.launcher_*.jar")
+local bundles = {
+    vim.fn.glob(home .. '/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar', true)
+};
+vim.list_extend(bundles, vim.split(vim.fn.glob(home .. '/.local/share/nvim/mason/share/java-test/*.jar', true), '\n'))
 local jdtls_config = jdtls_package .. "/config_linux"
 local lombok_jar = jdtls_package .. "/lombok.jar"
 -- eclipse.jdt.ls stores project specific data within a folder. If you are working
@@ -39,24 +44,23 @@ local jdtls_on_attach = function(_, bufnr)
     nmap('<leader>ec', jdtls.extract_constant, bufopts, "Extract constant")
     vim.keymap.set('v', '<leader>em', [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]],
         { noremap = true, silent = true, buffer = bufnr, desc = "Extract method" })
+    nmap('<F5>', function()
+            require('jdtls.dap').setup_dap_main_class_configs({ on_ready = function() require('dap').continue() end })
+        end,
+        bufopts, "Find eligible classes then start debug")
+    -- setup debug adapter: find main methods & code hot swap
+    jdtls.setup_dap({ hotcodereplace = "auto" })
 end
 
 function M.jdtls_config(capabilities)
     return {
-        flags = {
-            debounce_text_changes = 80,
-        },
-        filetypes = filetypes,
-        on_attach = jdtls_on_attach, -- We pass our on_attach keybindings to the configuration map
-        root_dir = root_dir(),         -- Set the root directory to our found root_marker
-        -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
         settings = {
             java = {
                 format = {
                     settings = {
                         url = google_style,
                         profile = "GoogleStyle",
-                    },
+                    }
                 },
                 signatureHelp = { enabled = true },
                 contentProvider = { preferred = 'fernflower' }, -- Use fernflower to decompile library code
@@ -126,11 +130,23 @@ function M.jdtls_config(capabilities)
                     },
                     maven = {
                         userSettings = nil,
-                        globalSettings = "${HOME}/.config/maven/settings.xml",
+                        globalSettings = home .. "/.config/maven/settings.xml",
                     }
                 }
             }
         },
+        flags = {
+            debounce_text_changes = 80,
+        },
+        filetypes = filetypes,
+        on_attach = jdtls_on_attach, -- We pass our on_attach keybindings to the configuration map
+        root_dir = root_dir(),       -- Set the root directory to our found root_marker
+        -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+        init_options = {
+            -- debug adapter
+            bundles = bundles
+        },
+        capabilities = capabilities,
         -- cmd is the command that starts the language server. Whatever is placed
         -- here is what is passed to the command line to execute jdtls.
         -- Note that eclipse.jdt.ls must be started with a Java version of 17 or higher
@@ -154,7 +170,6 @@ function M.jdtls_config(capabilities)
             -- Use the workspace_folder defined above to store data for this project
             '-data', workspace_folder,
         },
-        capabilities = capabilities,
     }
 end
 
