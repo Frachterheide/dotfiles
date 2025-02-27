@@ -53,7 +53,7 @@ config.keys = {
 		action = wezterm.action.SendString("\x1b[44;5u"),
 	},
 }
-config.font = wezterm.font 'FiraCode'
+config.font = wezterm.font 'Jetbrains Mono'
 config.font_size = 14.0
 config.force_reverse_video_cursor = true
 config.colors = {
