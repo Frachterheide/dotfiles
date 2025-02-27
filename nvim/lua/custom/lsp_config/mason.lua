@@ -3,10 +3,9 @@ local mason_lspconfig = require('mason-lspconfig')
 mason_lspconfig.setup()
 
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
+  clangd = {},
+  gopls = {},
+  rust_analyzer = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
   lua_ls = {
     Lua = {
