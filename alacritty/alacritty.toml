@@ -1,4 +1,4 @@
-[shell]
+[terminal.shell]
 program = "/bin/bash"
 
 [mouse]
@@ -56,15 +56,15 @@ opacity = 0.8
 size = 16
 
 [font.bold]
-family = "FiraMono"
+family = "Jetbrains Mono"
 style = "Bold"
 
 [font.normal]
-family = "FiraMono"
+family = "Jetbrains Mono"
 style = "Medium"
 
 [font.italic]
-family = "FiraMono"
+family = "Jetbrains Mono"
 style = "Regular"
 
 [colors]
