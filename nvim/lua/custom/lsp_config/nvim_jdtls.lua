@@ -30,6 +30,7 @@ local workspace_folder = home .. "/.cache/jdtls/workspace/" .. vim.fn.fnamemodif
 -- The on_attach function is used to set key maps after the language server
 -- attaches to the current buffer
 local jdtls_on_attach = function(_, bufnr)
+    local jdtls_dap = require("jdtls.dap")
     require('custom.lsp_config.lsp_keymaps').base_mapping(bufnr)
     -- Helper function for creating keymaps
     local nmap = function(rhs, lhs, bufopts, desc)
@@ -45,7 +46,8 @@ local jdtls_on_attach = function(_, bufnr)
     vim.keymap.set('v', '<leader>em', [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]],
         { noremap = true, silent = true, buffer = bufnr, desc = "Extract method" })
     nmap('<F5>', function()
-            require('jdtls.dap').setup_dap_main_class_configs({ on_ready = function() require('dap').continue() end })
+            jdtls_dap.setup_dap_main_class_configs({ on_ready = function() require('dap').continue() end })
+            vim.lsp.codelens.refresh()
         end,
         bufopts, "Find eligible classes then start debug")
     -- setup debug adapter: find main methods & code hot swap
@@ -149,11 +151,11 @@ function M.jdtls_config(capabilities)
         capabilities = capabilities,
         -- cmd is the command that starts the language server. Whatever is placed
         -- here is what is passed to the command line to execute jdtls.
-        -- Note that eclipse.jdt.ls must be started with a Java version of 17 or higher
+        -- Note that eclipse.jdt.ls must be started with a Java version of 21 or higher
         -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
         -- for the full list of options
         cmd = {
-            '/usr/lib/jvm/java-17-openjdk/bin/java',
+            '/usr/lib/jvm/java-21-openjdk/bin/java',
             '-Declipse.application=org.eclipse.jdt.ls.core.id1',
             '-Dosgi.bundles.defaultStartLevel=4',
             '-Declipse.product=org.eclipse.jdt.ls.core.product',
