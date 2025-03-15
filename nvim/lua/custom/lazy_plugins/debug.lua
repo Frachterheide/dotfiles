@@ -19,22 +19,61 @@ return {
     local dapui = require('dapui')
 
     require('mason-nvim-dap').setup {
-      -- Makes a best effort to setup the various debuggers with
-      -- reasonable debug configurations
+      -- a best effort
       -- automatic_setup = true,
-
-      -- You can provide additional configuration to the handlers,
       -- see mason-nvim-dap README for more information
       handlers = {},
-
-      -- You'll need to check that you have the required things installed
-      -- online, please don't ask me how to install them :)
+      automatic_installation = true,
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'javadbg',
         'javatest',
         'kotlin',
-      },
+        'php'
+      }
+    }
+
+    dap.adapters.lldb = {
+      type = 'executable',
+      command = 'lldb-dap',
+      name = 'lldb'
+    }
+
+    -- default config for c, cpp
+    -- more info: https://github.com/llvm/llvm-project/tree/main/lldb/tools/lldb-dap#configuration-settings-reference
+    dap.configurations.cpp = {
+      name = 'Launch',
+      type = 'lldb',
+      request = 'launch',
+      program = function()
+        return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+      end,
+      cwd = '${workspaceFolder}',
+      stopOnEntry = false,
+      args = {}
+    }
+
+    dap.configurations.c = dap.configurations.cpp
+    dap.configurations.rust = dap.configurations.cpp
+
+    dap.configurations.rust = {
+      initCommands = function()
+        -- lookup pretty printer python module
+        local rustc_sysroot = vim.fn.trim(vim.fn.system 'rustc --print sysroot')
+        assert(
+          vim.v.shell_error == 0,
+          'Failed to get rust sysroot using `rust --print sysroot`: ' .. rustc_sysroot
+        )
+        local script_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py'
+        local commands_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_commands'
+        -- check support :
+        -- lldb --batch -o 'help command script import'
+        -- lldb --batch -o 'help command source'
+        return {
+          ([[!command script import '%s']]):format(script_file),
+          ([[command source '%s']]):format(commands_file),
+        }
+      end
     }
 
     dap.adapters.php = {
@@ -84,7 +123,6 @@ return {
         timeout = 2000,
       },
     }
-
 
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })

@@ -22,7 +22,6 @@ return {
       }
     }
   },
-
   dependencies = {
     'echasnovski/mini.icons',
     'nvim-tree/nvim-web-devicons',
