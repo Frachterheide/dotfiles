@@ -8,7 +8,7 @@ return {
     "theHamsta/nvim-dap-virtual-text",
     -- async io api and primitives for Neovim Core
     "nvim-neotest/nvim-nio",
-    -- Installs the debug adapters for you
+    -- Install debug adapters
     "williamboman/mason.nvim",
     "jay-babu/mason-nvim-dap.nvim",
   },
@@ -23,21 +23,22 @@ return {
       automatic_installation = true,
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
+        'codelldb',
         'javadbg',
         'kotlin',
-        'php'
+        'php',
       }
     }
-    dap.adapters.lldb = {
+    dap.adapters.codelldb = {
       type = 'executable',
-      command = 'lldb-dap',
-      name = 'lldb'
+      command = 'codelldb',
+      name = 'codelldb'
     }
     -- default config for c, cpp
     -- more info: https://github.com/llvm/llvm-project/tree/main/lldb/tools/lldb-dap#configuration-settings-reference
     dap.configurations.cpp = {
       name = 'Launch',
-      type = 'lldb',
+      type = 'codelldb',
       request = 'launch',
       program = function()
         return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
