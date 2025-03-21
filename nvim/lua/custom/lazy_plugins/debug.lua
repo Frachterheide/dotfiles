@@ -1,9 +1,7 @@
 -- debug.lua
 return {
-  -- NOTE: Yes, you can install new plugins here!
   "mfussenegger/nvim-dap",
   lazy = true,
-  -- NOTE: And you can specify dependencies as well
   dependencies = {
     -- Creates a beautiful debugger UI
     "rcarriga/nvim-dap-ui",
@@ -21,24 +19,20 @@ return {
     require('mason-nvim-dap').setup {
       -- a best effort
       -- automatic_setup = true,
-      -- see mason-nvim-dap README for more information
       handlers = {},
       automatic_installation = true,
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'javadbg',
-        'javatest',
         'kotlin',
         'php'
       }
     }
-
     dap.adapters.lldb = {
       type = 'executable',
       command = 'lldb-dap',
       name = 'lldb'
     }
-
     -- default config for c, cpp
     -- more info: https://github.com/llvm/llvm-project/tree/main/lldb/tools/lldb-dap#configuration-settings-reference
     dap.configurations.cpp = {
@@ -52,10 +46,8 @@ return {
       stopOnEntry = false,
       args = {}
     }
-
     dap.configurations.c = dap.configurations.cpp
     dap.configurations.rust = dap.configurations.cpp
-
     dap.configurations.rust = {
       initCommands = function()
         -- lookup pretty printer python module
@@ -75,26 +67,22 @@ return {
         }
       end
     }
-
     dap.adapters.php = {
       type = 'executable',
       command = 'node',
       args = { '${HOME}/.local/bin/php-debug-adapter' }
     }
-
     dap.configurations.php = {
       type = 'php',
       request = 'launch',
       name = 'Listen for Xdebug',
       port = 9000,
     }
-
     dap.adapters.kotlin = {
       type = "executable",
       command = "kotlin-debug-adapter",
       options = { auto_continue_if_many_stopped = false },
     }
-
     dap.configurations.kotlin = {
       {
         type = "kotlin",
@@ -123,7 +111,6 @@ return {
         timeout = 2000,
       },
     }
-
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
     vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
@@ -133,7 +120,6 @@ return {
     vim.keymap.set('n', '<leader>B', function()
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     end, { desc = 'Debug: Set Breakpoint' })
-
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
     dapui.setup {
@@ -154,12 +140,10 @@ return {
         },
       },
     }
-
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
-
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
-  end,
+  end
 }
