@@ -15,7 +15,6 @@ return {
     'ray-x/cmp-sql',
     'rcarriga/cmp-dap',
     'jc-doyle/cmp-pandoc-references',
-    'tamago324/cmp-zsh',
     -- lua snippets and auto expansion with nvim-cmp
     { 'L3MON4D3/LuaSnip', build = 'make install_jsregexp' },
     'saadparwaiz1/cmp_luasnip',
@@ -37,7 +36,6 @@ return {
         { name = "buffer" },
         { name = "nvim_lsp_signature_help" },
         { name = "nvim_lsp_document_symbol" },
-        { name = "zsh" },
       },
       mapping = {
         ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
