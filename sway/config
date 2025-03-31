@@ -12,8 +12,8 @@ set $term wezterm
 # on the original workspace that the command was run on.
 set $menu dmenu_path | fuzzel | xargs swaymsg exec --
 ### Output configuration
-output DP-3 pos 1920 0 res 2560x1440@143.856Hz bg ${HOME}/.config/sway/background/2k.jpg fit
-output HDMI-A-1 pos 0 0 res 1920x1080@60.000Hz bg ${HOME}/.config/sway/background/FHD.jpg fit
+output DP-3 pos 1920 0 res 2560x1440@144Hz bg ${HOME}/.config/sway/background/2k.jpg fit
+output HDMI-A-1 pos 0 0 res 1920x1080@60Hz bg ${HOME}/.config/sway/background/FHD.jpg fit
 ### Input configuration
 input "2385:5862:Kingston_HyperX_Alloy_Origins_Core" {
     xkb_layout us
