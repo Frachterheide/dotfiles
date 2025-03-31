@@ -136,8 +136,8 @@ local jdtls_config = function(caps)
                         },
                     },
                     maven = {
-                        userSettings = nil,
-                        globalSettings = home .. "/.config/maven/settings.xml",
+                        userSettings = home .. "/.config/maven/settings.xml",
+                        globalSettings = home .. "/.config/maven/settings.xml"
                     }
                 }
             }
