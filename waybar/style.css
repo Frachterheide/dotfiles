@@ -46,7 +46,7 @@
 /* Reset all styles */
 * {
     border: none;
-    border-radius: 0;
+    border-radius: 5px;
     min-height: 0;
     margin: 0;
     padding: 0;
@@ -55,47 +55,51 @@
 
 /* The whole bar */
 window#waybar {
-    background: @black;
-    color: @white;
+    background: transparent;
     font-size: 14px;
 }
 
-/* Each module */
-#custom-help,
-#custom-scratchpad,
-#custom-github,
-#custom-clipboard,
-#custom-zeit,
+#workspaces button {
+    background-color: @black;
+    border-top: 2px solid transparent;
+    padding: 0px 10px 0px 10px;
+    /* To compensate for the top border and still have vertical centering */
+    color: @grey;
+}
+
+#workspaces button.focused {
+    border-color: @grey;
+}
+
+#workspaces button.urgent {
+    border-color: @red;
+    color: @red;
+}
+
+/* -----------------------------------------------------------------------------
+ * Basic style for following modules 
+ * ---------------------------------------------------------------------------*/
 #bluetooth,
 #clock,
 #cpu,
 #memory,
 #network,
 #pulseaudio,
-#custom-playerctl,
-#tray {
-    padding-left: 10px;
-    padding-right: 10px;
+#playerctl,
+#tray{
+  color: @grey;
+    background-color: @black;
+    padding: 0px 10px;
+    font-weight: bold;
 }
 
 /* -----------------------------------------------------------------------------
- * Module styles
+ * Specific module styles
  * -------------------------------------------------------------------------- */
 
-#custom-scratchpad,
-#custom-menu,
-#workspaces button.focused,
-#clock {
-    color: @black;
-    background-color: @grey;
-}
 
 #custom-zeit.tracking {
     background-color: @orange;
-}
-
-#clock {
-    font-weight: bold;
 }
 
 #cpu.warning {
@@ -130,24 +134,9 @@ window#waybar {
     color: @orange;
 }
 
-#workspaces button {
-    border-top: 2px solid transparent;
-    /* To compensate for the top border and still have vertical centering */
-    padding-bottom: 2px;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: @grey;
-}
-
-#workspaces button.focused {
-    border-color: @grey;
-}
-
-#workspaces button.urgent {
-    border-color: @red;
-    color: @red;
-}
-
 #bluetooth.disabled {
     color: @orange;
+}
+#tray {
+    background: @black;
 }

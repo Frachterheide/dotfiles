@@ -11,9 +11,9 @@
         "sway/workspaces"
     ],
     "modules-center": [
+        "clock"
     ],
     "modules-right": [
-        "clock"
     ],
     // -------------------------------------------------------------------------
     // modules
@@ -40,7 +40,6 @@
         "format": "{:%a %e %b %Y %H:%M}",
         "tooltip": true,
         "tooltip-format": "<big>{:%B %Y}</big>\n<tt>{calendar}</tt>",
-        "on-click": "swaymsg exec calendar"
     }
 },{
    // -------------------------------------------------------------------------
@@ -55,8 +54,10 @@
        "sway/workspaces"
    ],
    "modules-center": [
+       "clock"
    ],
    "modules-right": [
+       "tray",
        // informational
        "cpu",
        "memory",
@@ -64,12 +65,10 @@
        "network",
        "bluetooth",
        // media
-       "custom/playerctl",
+       "playerctl",
        "pulseaudio",
        // system
-       "scratchpad",
-       "tray",
-       "clock"
+       "scratchpad"
    ],
    // -------------------------------------------------------------------------
    // Modules
@@ -103,7 +102,6 @@
        "format": "{:%a %e %b %Y %H:%M}",
        "tooltip": true,
        "tooltip-format": "<big>{:%B %Y}</big>\n<tt>{calendar}</tt>",
-       "on-click": "swaymsg exec calendar"
    },
 
    "cpu": {
@@ -113,7 +111,6 @@
            "warning": 70,
            "critical": 90
        },
-       "on-click": "swaymsg exec once term_float htop",
        "tooltip": true
    },
 
@@ -124,13 +121,13 @@
            "warning": 70,
            "critical": 90
        },
-       "on-click": "swaymsg exec once term_float htop",
+       "on-click": "swaymsg \"exec wezterm -e htop\"",
        "tooltip": true
    },
 
    "network": {
        "interval": 5,
-       "format-wifi": " ",
+       "format-wifi": " ({signalStrength}%)",
        "format-ethernet": "󰈀",
        "format-disconnected": "󰖪",
        "tooltip-format": "{icon} {ifname}: {ipaddr}",
@@ -138,7 +135,7 @@
        "tooltip-format-wifi": "{icon} {ifname} ({essid}): {ipaddr}",
        "tooltip-format-disconnected": "{icon} disconnected",
        "tooltip-format-disabled": "{icon} disabled",
-       "on-click": "swaymsg exec once term_float nmtui connect"
+       "on-click": "swaymsg \"exec wezterm -e nmtui\""
    },
 
    "pulseaudio": {
@@ -162,7 +159,7 @@
    "bluetooth": {
        "format": "󰂯",
        "format-disabled": "󰂲",
-       "on-click": "swaymsg exec \\$bluetooth",
+       "on-click": "swaymsg \"exec wezterm -e bluetoothctl\"",
        "on-click-right": "rfkill toggle bluetooth",
        "tooltip-format": "{}"
    },
@@ -175,7 +172,7 @@
        "tooltip-format": "{app}: {title}"
    },
 
-   "custom/playerctl": {
+   "playerctl": {
        "interval": "once",
        "tooltip": true,
        "return-type": "json",
