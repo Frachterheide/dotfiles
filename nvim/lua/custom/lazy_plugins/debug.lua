@@ -9,7 +9,7 @@ return {
     -- async io api and primitives for Neovim Core
     "nvim-neotest/nvim-nio",
     -- Install debug adapters
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     "jay-babu/mason-nvim-dap.nvim",
   },
   config = function()

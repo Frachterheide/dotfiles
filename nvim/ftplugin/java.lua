@@ -137,7 +137,7 @@ local jdtls_config = function(caps)
                     },
                     maven = {
                         userSettings = home .. "/.config/maven/settings.xml",
-                        globalSettings = home .. "/.config/maven/settings.xml"
+                        globalSettings = home .. "/.config/maven/settings.xml",
                     }
                 }
             }
