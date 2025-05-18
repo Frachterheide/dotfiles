@@ -15,19 +15,13 @@ set $menu dmenu_path | fuzzel | xargs swaymsg exec --
 output DP-3 pos 1920 0 res 2560x1440@144Hz bg ${HOME}/.config/sway/background/2k.jpg fit
 output HDMI-A-1 pos 0 0 res 1920x1080@60Hz bg ${HOME}/.config/sway/background/FHD.jpg fit
 ### Input configuration
+input type:keyboard {
+    xkb_layout de
+}
 input "2385:5862:Kingston_HyperX_Alloy_Origins_Core" {
     xkb_layout us
 }
-input "36125:46274:splitkb.com_Aurora_Lily58_rev1" {
-    xkb_layout de
-}
-input "5824:10203:Glove80_Keyboard" {
-    xkb_layout de
-}
-input "5824:10203:MoErgo_Glove80_Left_Keyboard" {
-    xkb_layout de
-}
-input "1133:49305:Logitech_G502_X" {
+input type:pointer {
     accel_profile "flat" # disable mouse acceleration (enabled by default; to set it manually, use "adaptive" instead of "flat")
 }
 ### Idle configuration
@@ -137,9 +131,12 @@ exec swayidle -w \
 #
 # Volume control:
 #
+    bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+    bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-    bindsym XF86AudioMute exec pactl set-sink-volume @DEFAULT_SINK@ toggle
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
     bindsym XF86AudioPlay exec playerctl play-pause
     bindsym XF86AudioNext exec playerctl next
     bindsym XF86AudioPrev exec playerctl previous
