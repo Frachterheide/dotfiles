@@ -1,3 +1,8 @@
+# Add line for XDG Base Directory Specification enforcement at end of 
+# /etc/bash.bashrc
+# [[ -f "$XDG_CONFIG_HOME"/bash/bashrc ]] && source "$XDG_CONFIG_HOME"/bash/bashrc
+
+
 # Enable the subsequent settings only in interactive sessions
 [[ $- != *i* ]] && return
 
@@ -10,7 +15,7 @@ for file in "${XDG_CONFIG_HOME}"/env/*; do
     if [[ -r "${file}" ]]; then 
         source "${file}"
     else
-        echo "Environment variables possibly missing"
+        echo "Environment variables not set."
     fi
 done
 unset file
@@ -19,7 +24,7 @@ for file in "${XDG_CONFIG_HOME}"/bash/plugins/*.bash; do
     if [[ -r "${file}" ]]; then
         source "${file}" 
     else 
-        echo "Missing plugin ${file}"
+        echo "Plugin not loaded ${file}"
     fi
 done
 unset file

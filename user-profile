@@ -1,3 +1,10 @@
+# Replace ~/.profile content with:
+# if [ -r "${HOME}"/.config/user-profile ]; then
+#   source "${HOME}"/.config/user-profile
+# else
+#   echo "Missing config: ~/.config/user-profile"
+# fi
+
 # GUI related settings
 export BEMENU_BACKEND=x11
 export GTK_THEME=Adwaita:dark
