@@ -6,10 +6,10 @@
 # fi
 
 # GUI related settings
-export BEMENU_BACKEND=x11
 export GTK_THEME=Adwaita:dark
+export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
 export GTK_USE_PORTAL=0
-export QT_STYLE_OVERRIDE=breeze
+export QT_STYLE_OVERRIDE=Adwaita-dark
 
 if [ "${XDG_SESSION_TYPE}" = "wayland" ]; then
   export _JAVA_AWT_WM_NONREPARENTING=1
