@@ -25,7 +25,6 @@ local bundles = {
 -- add test extension
 -- vim.list_extend(bundles, vim.split(vim.fn.glob(home .. mason_share .. "/java-test/*.jar", true), "\n"))
 local jdtls_config_path = jdtls_package .. "/config_linux"
-local lombok_jar = jdtls_package .. "/lombok.jar"
 -- eclipse.jdt.ls stores project specific data within a folder. If you are working
 -- with multiple different projects, each project must use a dedicated data directory.
 -- This variable is used to configure eclipse to use the directory name of the
@@ -162,10 +161,8 @@ local jdtls_config = function(caps)
             '-Dlog.protocol=true',
             '-Dlog.level=ALL',
             '-Xmx4g',
-            '-javaagent:' .. lombok_jar,
             '--add-modules=ALL-SYSTEM',
             '--add-opens', 'java.base/java.util=ALL-UNNAMED',
-            '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
             '-jar', jdtls_jar,
             '-configuration', jdtls_config_path,
 
